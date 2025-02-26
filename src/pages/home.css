@@ -6,7 +6,7 @@
     align-items: center;
     /* height: 400px;  */
     border-radius: 15px;
-    background-image: url(homebg.webp);
+    background-image: url('/homebg.webp');
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
     overflow: hidden;
     padding: 10px;
