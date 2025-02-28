@@ -233,7 +233,7 @@ const CheckOut = ({ userDetails }) => {
                         <label><input type="radio" name='method' required /> Cash on Delivary</label>
                         <p className='text-sm text-gray-300'>(required)</p>
                     </div>
-                    <button type="submit" className='mt-6 flex  items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700'><CreditCard /> Place Order </button>
+                    <button type="submit" className='mt-6 mb-6 flex  items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700'><CreditCard /> Place Order </button>
 
                 </div>
             </div>
