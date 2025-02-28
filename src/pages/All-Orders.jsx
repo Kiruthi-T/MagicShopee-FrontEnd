@@ -34,6 +34,10 @@ const Orders = () => {
 
   return (
     <div>
+            <h2 className="text-gray-800 text-3xl text-center mt-4 ">My Orders</h2>
+
+       {orders.length === 0 ? <p className="text-gray-500 text-2xl text-center mt-4 ">No Orders Yes.</p> : null}
+
       {orders.map((order) => (
         <div className="max-w-3xl mx-auto p-6 gap-2 m-4 bg-red-50  shadow-lg rounded-lg">
           <h2 className="text-2xl font-bold mb-4">Order Details</h2>
