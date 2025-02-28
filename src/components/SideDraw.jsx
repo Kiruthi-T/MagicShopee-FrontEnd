@@ -21,7 +21,9 @@ import Badge from '@mui/material/Badge';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../contexts/CartContext';
 import { useContext } from 'react';
-import ListAlt from '@mui/icons-material/ListAlt'
+import LocalMallIcon from '@mui/icons-material/LocalMall'
+import Storefront from '@mui/icons-material/Storefront'
+
 
 
 const drawerWidth = 240;
@@ -97,10 +99,12 @@ export default function SideDraw() {
     {text:"Cart",icon:(<Badge badgeContent={length} color="secondary">
       <ShoppingCartIcon/>
     </Badge>),path:"/cart"},    
-    {text:"All Orders",icon:<ListAlt/>,path:"/All-Orders"},
+    {text:"All Orders",icon:<LocalMallIcon/>,path:"/All-Orders"},
+    {text:"ALLcatagorys",icon:<Storefront/>,path:"/ALLcatagorys"},
     {text:"Favorites",icon:<FavoriteIcon/>,path:"/favorites"},
     {text:"Recents",icon:<HistoryIcon/>,path:"recents"},
-   
+ 
+
   ]
 
 

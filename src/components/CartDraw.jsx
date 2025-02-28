@@ -96,7 +96,7 @@ export default function CartDraw({ open, setOpen }) {
                     <p>$ {totel}</p>
                   </div>
                   <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
-                  <button onClick={() => navigate('/order')} className="w-full mt-6 flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700">
+                  <button onClick={() => navigate('/checkout')} className="w-full mt-6 flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700">
 
                     Checkout
                   </button>

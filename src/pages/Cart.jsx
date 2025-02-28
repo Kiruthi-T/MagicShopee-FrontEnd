@@ -26,8 +26,8 @@ const Cart = () => {
             <ul role="list" className="flex flex-wrap justify-around">
               {cart.map((product) => (
                 <div className="flex flex-wrap justify-around">
-                  <li key={product.id} className="flex m-2 p-6 w-96 shadow-xl">
-                    <div className="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
+                  <li key={product.id} className="flex flex-col md:flex-row justify-center m-2 pr-6 py-6 w-60 md:w-96 shadow-xl">
+                    <div className="size-24 shrink-0 overflow-hidden rounded-md flex justify-center m-3 border border-gray-200">
                       <img alt={product.title} src={product.images[0]} className="size-full object-cover" />
                     </div>
 
@@ -66,14 +66,14 @@ const Cart = () => {
               {cart.map((product) => (
                 <div className="flex justify-end m-3">
                   <h3>
-                    <a href={product.href}>{product.title}</a>
+                    <a href={product.href}>{product.title} -  {product.quantity} </a>
                   </h3>
-                  <h1>-</h1>
-                  <p className="ml-4 text-base font-medium text-gray-900">$ {product.price}</p>
+                  <h1>  -  </h1>
+                  <p className="ml-4 text-base font-medium text-gray-900">$ {product.price*product.quantity} </p>
                 </div>
               ))}
               <h1 className="text-base font-medium text-gray-900 m-3">TOTEL AMOUNT =$ {totel}</h1>
-              <button onClick={()=>navigate('/order')} className="mt-6 flex absolute right-3 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700">Check Out</button>
+              <button onClick={()=>navigate('/checkout')} className="mt-6 flex absolute right-3 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-indigo-700">Check Out</button>
 
             </div>
           )}

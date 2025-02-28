@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
    
 
     return (
-      <div className="bg-gray-200">
+      <div className="bg-gray-200 -ml-3">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 cursor-pointer" >
           <h2 className="sr-only">Products</h2>
   

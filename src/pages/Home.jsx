@@ -56,10 +56,10 @@ const Home = ({searchTerm}) => {
       {/* <Catagorys cat={cat}/> */}
       <Homecatagory/>
 
-      <div className='homebox1 mt-1 flex-col md:flex-row md:h-96'>
+      <div className='homebox1 mt-1 flex-col md:flex-row md:h-96 -ml-2'>
         <div >
-          <h1>Welcome to Magic Shopee</h1>
-          <p >
+          <h1 className='text-2xl m-2 text-black md:text-4xl'>Welcome to Magic Shopee</h1>
+          <p className='hidden md:block '>
             Discover the perfect products for you and your loved ones.
             Browse our diverse collection of fashion, lifestyle, and more.
           </p>

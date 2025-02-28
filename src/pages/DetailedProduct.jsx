@@ -75,7 +75,7 @@ const DetailedProduct = () => {
   return (
     <div className="bg-white">
       {/* Product info */}
-      <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
+      <div className="mx-auto max-w-2xl  pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
         <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{Productdetails.title}</h1>
         </div>
@@ -144,20 +144,23 @@ const DetailedProduct = () => {
             <span className="text-lg">{quantity}</span>
             <button onClick={increaseQuantity} className="px-3 py-1 bg-gray-300 rounded">+</button>
           </div> : null}
-          <div className='flex'>
+          <div className='flex  flex-col md:flex-row mt-9'>
             <button
               onClick={() => {
                 dispatch({ type: "ADD_TO_CART", payload: { ...Productdetails, quantity }, })
                 setOpen(true)
               }}
               type="submit"
-              className="mt-8 flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden"
+             className=" flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden"
             >
 
               {isInCart ? "Added" : "Add to bag"} <ShoppingCartIcon />
             </button>
-            <p className='m-10'>or</p>
-            <button onClick={() => navigate('/order')} className="mt-8 flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden">
+            <p className='m-2 text-center'>or</p>
+            <button onClick={() =>{
+               dispatch({ type: "ADD_TO_CART", payload: { ...Productdetails, quantity }, })
+               navigate('/checkout')
+            } } className=" flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden">
               Check Out <ShoppingCartCheckoutIcon /></button>
           </div>
           {/* <Button variant="contained"  onClick={()=>navigate('/order')}  startIcon={<ShoppingCartCheckoutIcon/>}>checkout</Button> */}
@@ -182,7 +185,7 @@ const DetailedProduct = () => {
               <Rating name="half-rating-read" defaultValue={Productdetails.rating} precision={0.5} />
             </div>
 
-            <div className="mt-4 flex gap-3">
+            <div className="mt-4 flex  flex-col md:flex-row gap-3">
               {Productdetails.reviews?.map((review) => (
                 <div className='bg-red-100 p-2 rounded-md'>
                   <h3 className="text-gray-600">{review.comment}</h3>
@@ -210,7 +213,7 @@ const DetailedProduct = () => {
 
         </div>
       </div>
-      <h1 className='text-gray-800 text-3xl ml-16 mt-4 '>Related Products</h1>
+      <h1 className='text-gray-800 text-3xl text-center mt-4 '>Related Products</h1>
       <Products productDetails={FilteredProducts} />
     </div>
 

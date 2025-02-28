@@ -25,9 +25,9 @@
   
 
   .homebox1 h1 {
-    font-size: 3rem;
+    /* font-size: 3rem; */
     font-weight: bold;
-    margin: 10px 0;
+    /* margin: 10px 0; */
     text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); 
   }
   

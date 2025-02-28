@@ -1,71 +1,52 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { CartContext } from '../contexts/CartContext';
 import { useNavigate } from 'react-router-dom';
 import CreditCard from '@mui/icons-material/CreditCard'
+import axios from 'axios';
 
+const BACKEND_API = import.meta.env.VITE_BACKEND_API
 
-const Order = () => {
-    const { state } = useContext(CartContext)
+const CheckOut = ({ userDetails }) => {
+    const { state, dispatch } = useContext(CartContext)
     const { cart } = state;
     console.log(cart);
     const navigate = useNavigate();
     const totel = Math.round(cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
 
-      const handlePlaceOrder=(e)=>{
+    const [address, setAddress] = useState({ Fname: "", Lname: "", Email: "", Country: "", street: "", city: "", state: "", Zip: "" })
+
+    console.log(address);
+
+    const handlePlaceOrder = async (e) => {
         e.preventDefault();
-        // const orderData={
-
-        // }
-
-        navigate('/home')
-      }
-
-//   const handlePlaceOrder = async (e) => {
-//     e.preventDefault();
-//     const orderData = {
-//       user: "65d123456789abcdef123456", // Replace with logged-in user ID
-//       orderItems: cart.map((item) => ({
-//         product: item._id,
-//         name: item.title,
-//         image: item.images[0],
-//         price: item.price,
-//         quantity: item.quantity,
-//       })),
-//       shippingAddress: {
-//         fullName: e.target.fullName.value,
-//         address: e.target.address.value,
-//         city: e.target.city.value,
-//         postalCode: e.target.postalCode.value,
-//         country: e.target.country.value,
-//       },
-//       paymentMethod: e.target.paymentMethod.value,
-//       itemsPrice: totalPrice,
-//       taxPrice,
-//       shippingPrice,
-//       totalPrice: grandTotal,
-//     };
-
-//     try {
-//       const response = await fetch("http://localhost:5000/api/orders", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(orderData),
-//       });
-
-//       if (response.ok) {
-//         dispatch({ type: "CLEAR_CART" });
-//         navigate("/home");
-//       } else {
-//         console.error("Failed to place order");
-//       }
-//     } catch (error) {
-//       console.error("Error placing order:", error);
-//     }
-//   };
-
+        const orderData = {
+            user: userDetails._id,
+            orderedItems: cart.map((product) => ({
+                product: product._id,
+                quantity: product.quantity
+            })),
+            shippingAddress: address,
+            paymentMethod: "COD",
+            totalPrice: totel
+        }
+        console.log(orderData);
+        try {
+            const response = await axios.post(`${BACKEND_API}/order`, orderData);
+            console.log(response);
+            
+            if (response.status === 200) {
+                dispatch({ type: "CLEAR_CART" });
+                navigate('/All-Orders')
+            } else {
+                console.error("Failed to place order");
+            }
+        } catch (error) {
+            console.error("Error placing order:", error);
+        }
+    };
 
     return (
-        <form onSubmit={ handlePlaceOrder}>
+        <form onSubmit={handlePlaceOrder}>
             <div className='flex flex-col md:flex-row'>
                 <div className="border border-gray-400 p-5 m-5 md:w-3/5">
                     <h2 className="text-base/7 font-semibold text-gray-900">Personal Information</h2>
@@ -83,6 +64,8 @@ const Order = () => {
                                     type="text"
                                     autoComplete="given-name"
                                     required
+                                    value={address.Fname}
+                                    onChange={(e) => { setAddress({ ...address, Fname: e.target.value }) }}
                                     className="block w-full border border-gray-400 focus:border-none rounded-md bg-white px-3 py-1.5 text-base text-gray-900  placeholder:text-gray-400  focus:outline-indigo-600 sm:text-sm/6"
                                 />
                             </div>
@@ -97,6 +80,8 @@ const Order = () => {
                                     id="last-name"
                                     name="last-name"
                                     type="text"
+                                    value={address.Lnamename}
+                                    onChange={(e) => { setAddress({ ...address, Lname: e.target.value }) }}
                                     autoComplete="family-name" required
                                     className="block w-full border border-gray-400 focus:border-none rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                 />
@@ -112,6 +97,8 @@ const Order = () => {
                                     id="email"
                                     name="email"
                                     type="email"
+                                    value={address.Email}
+                                    onChange={(e) => { setAddress({ ...address, Email: e.target.value }) }}
                                     autoComplete="email" required
                                     className="block w-full border border-gray-400 focus:border-none rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                 />
@@ -126,9 +113,12 @@ const Order = () => {
                                 <select
                                     id="country"
                                     name="country"
+                                    value={address.Country}
+                                    onChange={(e) => { setAddress({ ...address, Country: e.target.value }) }}
                                     autoComplete="country-name" required
                                     className="col-start-1 border border-gray-400 focus:border-none row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                 >
+                                    <option value="" disabled>Select a country</option>
                                     <option>India</option>
                                     <option>United States</option>
                                     <option>Korea</option>
@@ -146,6 +136,8 @@ const Order = () => {
                                     id="street-address"
                                     name="street-address"
                                     type="text"
+                                    value={address.street}
+                                    onChange={(e) => { setAddress({ ...address, street: e.target.value }) }}
                                     autoComplete="street-address" required
                                     className="block w-full rounded-md border border-gray-400 focus:border-none bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                 />
@@ -161,6 +153,8 @@ const Order = () => {
                                     id="city"
                                     name="city"
                                     type="text"
+                                    value={address.city}
+                                    onChange={(e) => { setAddress({ ...address, city: e.target.value }) }}
                                     autoComplete="address-level2" required
                                     className="block w-full rounded-md border border-gray-400 focus:border-none bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                 />
@@ -176,6 +170,8 @@ const Order = () => {
                                     id="region"
                                     name="region"
                                     type="text"
+                                    value={address.state}
+                                    onChange={(e) => { setAddress({ ...address, state: e.target.value }) }}
                                     autoComplete="address-level1" required
                                     className="block w-full rounded-md border border-gray-400 focus:border-none bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                 />
@@ -191,6 +187,8 @@ const Order = () => {
                                     id="postal-code"
                                     name="postal-code"
                                     type="text"
+                                    value={address.Zip}
+                                    onChange={(e) => { setAddress({ ...address, Zip: e.target.value }) }}
                                     autoComplete="postal-code" required
                                     className="block w-full rounded-md border border-gray-400 focus:border-none bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                 />
@@ -204,10 +202,10 @@ const Order = () => {
                         {cart.map((product) => (
                             <div className="flex justify-end m-3 text-end">
                                 <h3>
-                                    <a href={product.href}>{product.title}</a>
+                                    <a href={product.href}>{product.title} - {product.quantity}</a>
                                 </h3>
                                 <h1>-</h1>
-                                <p className="ml-4 text-base font-medium text-gray-900">$ {product.price}</p>
+                                <p className="ml-4 text-base font-medium text-gray-900">$ {product.price * product.quantity}</p>
                             </div>
                         ))}
                         <h1 className="text-base font-medium text-gray-900 m-3">TOTEL AMOUNT =$ {totel}</h1>
@@ -227,6 +225,6 @@ const Order = () => {
     )
 }
 
-export default Order
+export default CheckOut
 
 
