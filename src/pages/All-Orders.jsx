@@ -52,7 +52,7 @@ const Orders = () => {
               const product = allproduct.find(p => p._id === item.product);
               return (
                 <li key={item._id} className="border-b py-2 flex items-center">
-                  {product && <img src={product.image} alt={product.title} className="w-16 h-16 mr-4" />}
+                  {product && <img src={product.images[0]} alt={product.title} className="w-16 h-16 mr-4" />}
                   <div>
                     <p className="font-semibold">{product ? product.title : 'Unknown Product'}</p>
                     <p>Price: ₹{product ? product.price : 'N/A'}</p>
