@@ -13,7 +13,7 @@ const CheckOut = ({ userDetails }) => {
     const navigate = useNavigate();
     const totel = Math.round(cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
 
-    const [address, setAddress] = useState({ Fname: "", Lname: "", Email: "", Country: "", street: "", city: "", state: "", Zip: "" })
+    const [address, setAddress] = useState({ Fname: "", Lname: "",mobileNumber:"", Email: "", Country: "", street: "", city: "", state: "", Zip: "" })
 
     console.log(address);
 
@@ -87,7 +87,23 @@ const CheckOut = ({ userDetails }) => {
                                 />
                             </div>
                         </div>
-
+                        <div className="sm:col-span-4">
+                            <label htmlFor="first-name" className="block text-sm/6 font-medium text-gray-900">
+                                Mobile Number
+                            </label>
+                            <div className="mt-2">
+                                <input
+                                    id="first-name"
+                                    name="first-name"
+                                    type="tel"
+                                    autoComplete="given-name"
+                                    required
+                                    value={address.mobileNumber}
+                                    onChange={(e) => { setAddress({ ...address, mobileNumber: e.target.value }) }}
+                                    className="block w-full border border-gray-400 focus:border-none rounded-md bg-white px-3 py-1.5 text-base text-gray-900  placeholder:text-gray-400  focus:outline-indigo-600 sm:text-sm/6"
+                                />
+                            </div>
+                        </div>
                         <div className="sm:col-span-4">
                             <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                                 Email address
